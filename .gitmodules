@@ -1,0 +1,3 @@
+[submodule "plugins/libsvm"]
+	path = plugins/libsvm
+	url = git@github.com:chen244/libsvmCMakelib.git
