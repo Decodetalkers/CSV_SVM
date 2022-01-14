@@ -12,8 +12,6 @@ public:
 private:
   std::vector<int> index;
   int type_index;
-  // private:
-  //   std::vector<std::pair<int, std::vector<float>>> messages;
 };
 } // namespace libcsv
 #endif // !CSV_H

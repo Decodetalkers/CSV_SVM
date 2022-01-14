@@ -30,7 +30,7 @@ CSV_SERDER::get_messages(std::string fname) {
           } catch (std::invalid_argument e) {
             throw;
           }
-        } else if (index_now == float_index) {
+        } else if (index_now == index[float_index]) {
           float message;
           try {
             message = std::stod(word);
