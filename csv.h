@@ -6,7 +6,7 @@ namespace libcsv {
 struct CSV_SERDER {
 public:
   CSV_SERDER(std::vector<int> index, int typeindex);
-  std::vector<std::pair<int, std::vector<float>>>
+  std::vector<std::pair<int, std::vector<double>>>
   get_messages(std::string fname);
 
 private:

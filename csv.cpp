@@ -9,9 +9,9 @@ using namespace libcsv;
 // create a new struct to handle csvs
 CSV_SERDER::CSV_SERDER(std::vector<int> index, int typeindex)
     : index(index), type_index(typeindex) {}
-std::vector<std::pair<int, std::vector<float>>>
+std::vector<std::pair<int, std::vector<double>>>
 CSV_SERDER::get_messages(std::string fname) {
-  std::vector<std::pair<int, std::vector<float>>> messages;
+  std::vector<std::pair<int, std::vector<double>>> messages;
   std::sort(index.begin(), index.end());
   const int len = index.size();
   std::fstream file(fname, std::ios::in);
@@ -22,7 +22,7 @@ CSV_SERDER::get_messages(std::string fname) {
       int index_now = 0;
       int float_index = 0;
       int localtype = -1;
-      std::vector<float> context;
+      std::vector<double> context;
       while (std::getline(str, word, ',')) {
         if (index_now == type_index) {
           try {
@@ -33,7 +33,7 @@ CSV_SERDER::get_messages(std::string fname) {
         } else if (index_now == float_index) {
           float message;
           try {
-            message = std::stof(word);
+            message = std::stod(word);
           } catch (std::invalid_argument e) {
             throw;
           }
