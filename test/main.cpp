@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
   auto output3 = model.predict(
       {50.8449, -19.0803, 138.693, 139.965, 109.852, 65.1941, -7.0376});
   if (output3.has_value()) {
-		std::cout << output3.value() << std::endl;
+    std::cout << output3.value() << std::endl;
   } else {
     std::cout << "None" << std::endl;
   }
