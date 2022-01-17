@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
   }
   std::pair<std::vector<int>, std::vector<std::vector<double>>> output2;
   try {
-    output2 = metacsv.svm_information("csvs/persion1.csv");
+    output2 = metacsv.svm_information("csvs/persion2.csv");
   } catch (char const *e) {
     std::cout << e << std::endl;
   } catch (std::invalid_argument e) {

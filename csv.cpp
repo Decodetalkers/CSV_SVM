@@ -50,7 +50,7 @@ CSV_SERDER::get_messages(std::string fname) {
           } catch (std::invalid_argument e) {
             throw;
           }
-        } else if (index_now == index[float_index]) {
+        } else if (float_index <= len && index_now == index[float_index]) {
           float message;
           try {
             message = std::stod(word);
@@ -97,7 +97,7 @@ CSV_SERDER::svm_information(std::string fname) {
           } catch (std::invalid_argument e) {
             throw;
           }
-        } else if (index_now == index[float_index]) {
+        } else if (float_index < len && index_now == index[float_index]) {
           float message;
           try {
             message = std::stod(word);
@@ -130,25 +130,24 @@ SVM_MODEL::SVM_MODEL(message messages) : svmpara(Initialize_svm_parameter()) {
   svm_problem prob;
   svm_node *x_space;
   prob.l = sizeOfProblem;
-  prob.y = Malloc(double, prob.l);
-  prob.x = Malloc(struct svm_node *, prob.l);
-  x_space = Malloc(struct svm_node, (elements + 1) * prob.l);
+  prob.y = new double[sizeOfProblem];
+  prob.x = new svm_node *[sizeOfProblem];
   for (size_t i = 0; i < prob.l; i++) {
     prob.y[i] = messages.first[i];
   }
-  int j = 0;
+  // int j = 0;
   for (size_t i = 0; i < prob.l; i++) {
-    prob.x[i] = &x_space[j];
-    for (int k = 0; k < messages.second[i].size(); ++k, ++j) {
-      x_space[j].index = k + 1;                 // index of value
-      x_space[j].value = messages.second[i][k]; // value
+    prob.x[i] = new svm_node[elements + 1];
+    for (int k = 0; k < messages.second[i].size(); ++k) {
+      prob.x[i][k].index = k + 1;                 // index of value
+      prob.x[i][k].value = messages.second[i][k]; // value
     }
-    x_space[j].index = -1; // state the end of data vector
-    x_space[j].value = 0;
-    j++;
+    prob.x[i][elements].index = -1; // state the end of data vector
+    // x_space[j].value = 0;
+    // j++;
   }
   model = svm_train(&prob, &svmpara);
-  delete x_space;
+  // delete x_space;
 }
 std::optional<int> SVM_MODEL::predict(std::vector<double> input) {
   if (input.size() != elements) {
